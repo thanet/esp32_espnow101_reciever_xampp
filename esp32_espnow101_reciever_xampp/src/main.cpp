@@ -87,8 +87,6 @@ void setup(){
   WiFi.mode(WIFI_STA);
   WiFi.setSleep(WIFI_PS_NONE);
 
-  // for initial EspNow
-  initializeEspNow();
   
   // for initial loop 2 wifi sidd 
   selectNetworkConfiguration();
@@ -96,6 +94,7 @@ void setup(){
   // for initial wifi connection
   wifi_init();
 
+  
 }
  
 void loop(){
@@ -104,7 +103,12 @@ void loop(){
 
   // ++ upload data to xampp
   if (readytoupload && temperature > 0 && humidity > 0 ){
+    // for initial EspNow
+  initializeEspNow();
     UploadData2Xampp();
+
+    WiFi.disconnect();
+
   } else {
     Serial.println("No data to upload..");
     
